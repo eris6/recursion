@@ -1,7 +1,5 @@
-function mergeSort(arr)
-{
-	if (arr.length === 1)
-	{
+function mergeSort(arr){
+	if (arr.length <= 1){
 		return arr;
 	}
 
@@ -12,22 +10,18 @@ function mergeSort(arr)
 
 }
 
-function merge(left, right)
-{
+function merge(left, right){
 	const result = [];
 	let leftIndex = 0;
 	let rightIndex = 0;
 
 
-	while (leftIndex < left.length && rightIndex < right.length)
-	{
-		if (left[leftIndex] < right[rightIndex])
-		{
+	while (leftIndex < left.length && rightIndex < right.length){
+		if (left[leftIndex] < right[rightIndex]){
 			result.push(left[leftIndex]);
 			leftIndex++;
 		}
-		else
-		{
+		else{
 			result.push(right[rightIndex]);
 			rightIndex++;
 		}
@@ -35,4 +29,4 @@ function merge(left, right)
 	return result.concat(left.slice(leftIndex), right.slice(rightIndex));
 }
 
-console.log(mergeSort([4, 3, 10, 22, 1, 5]))
+console.log(mergeSort([]))
