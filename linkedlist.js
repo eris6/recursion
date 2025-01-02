@@ -104,6 +104,7 @@ class LinkedList {
             this.head = null;
             this.tail = null;
         }
+        
         else{
             let current = this.head;
             while (current){
@@ -165,9 +166,27 @@ class LinkedList {
     }
 
     removeAt(index){
+        if (index === this.size() - 1){
+            this.pop();
+            return;
+        }
+
+        if (index === 0){
+            let head = this.head;
+            head.next = null;
+            this.head = this.at(1);
+            return;
+        }
+
+        if (index < 0 || index > this.size()){
+            console.log(`Out of range!`);
+            return;
+        }
+
         let prevNode = this.at(index - 1);
         let nextNode = this.at(index + 1);
         prevNode.next = nextNode;
+        
     }
 
 
@@ -199,9 +218,9 @@ list.append("cat");
 list.append("parrot");
 list.append("hamster");
 list.append("snake");
-list.append("turtle");
-list.insertAt("butterflies", 6);
+list.append("butterfly");
+list.pop();
 
 
 
-list.toString()
+list.printList()
