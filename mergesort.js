@@ -26,7 +26,11 @@ function merge(left, right){
 			rightIndex++;
 		}
 	}
-	return result.concat(left.slice(leftIndex), right.slice(rightIndex));
+
+	console.log(result);
+	console.log(left.slice(leftIndex));
+	console.log(right.slice(rightIndex));
+	return result.concat(right.slice(rightIndex), left.slice(leftIndex));
 }
 
-console.log(mergeSort([]))
+console.log(mergeSort([4,3,10,2, 1, 5]))
