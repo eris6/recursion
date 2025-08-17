@@ -1,7 +1,7 @@
 function HashMap(){
     const loadFactor = 0.75;
     let capacity = 16;
-    const buckets = Array.from({ length: capacity }, () => []);
+    let buckets = Array.from({ length: capacity }, () => []);
 
     const hash = (key) => {
         let hashCode = 0;
@@ -21,6 +21,7 @@ function HashMap(){
         if (index < 0 || index >= buckets.length) {
             throw new Error("Trying to access index out of bounds");
         }
+        console.log(buckets);
 
         for (let pair of bucket){
             if (pair[0] === key){
@@ -28,8 +29,26 @@ function HashMap(){
                 return;
             }
         }
-
         bucket.push([key, value])
+
+        if (length() > capacity * loadFactor){
+            rehash();
+        }
+    }
+
+    const rehash = () => {
+        let oldBuckets = buckets;
+        capacity *= 2;
+        buckets = Array.from({ length: capacity }, () => []);
+
+        oldBuckets.forEach((bucket) => {
+            bucket.forEach(([key, value]) => {
+                const index = hash(key);
+                console.log(buckets);
+                console.log(buckets[index])
+                buckets[index].push([key, value]);
+            })
+        })
     }
 
     const get = (key) => {
@@ -115,57 +134,32 @@ function HashMap(){
 
 
     const values = () => {
-        const keyList = [];
+        const valueList = [];
 
         for (let i = 0; i < capacity; i++){
             let currentBucket = buckets[i];
 
             currentBucket.forEach((item) => {
-                keyList.push(item[1]);
+                valueList.push(item[1]);
             })
         }
 
-        return keyList;
+        return valueList;
     }
 
         const entries = () => {
-        const keyList = [];
+        const entryList = [];
 
         for (let i = 0; i < capacity; i++){
             let currentBucket = buckets[i];
 
             currentBucket.forEach((item) => {
-                keyList.push([item[0], item[1]]);
+                entryList.push([item[0], item[1]]);
             })
         }
 
-        return keyList;
+        return entryList;
     }
-    return {set, get, has, remove, length, clear, keys, values, entries}
+    return {set, get, has, remove, length, clear, keys, values, entries, rehash}
 
 }
-
-const test = new HashMap();
- test.set('apple', 'red')
- test.set('banana', 'yellow')
- test.set('carrot', 'orange')
- test.set('dog', 'brown')
- test.set('elephant', 'gray')
- test.set('frog', 'green')
- test.set('grape', 'purple')
- test.set('hat', 'black')
- test.set('ice cream', 'white')
- test.set('jacket', 'blue')
- test.set('kite', 'pink')
- test.set('butterfly', 'blue')
- test.set('lion', 'golden')
-  test.set('moon', 'silver')
-
-
-  test.get('banana')
-
-console.log(test.keys());
-console.log(test.entries());
-
-
-
