@@ -10,7 +10,6 @@ function HashMap(){
         for (let i = 0; i < key.length; i++) {
             hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % capacity;
         }
-
         return hashCode;
     }
 
@@ -21,7 +20,6 @@ function HashMap(){
         if (index < 0 || index >= buckets.length) {
             throw new Error("Trying to access index out of bounds");
         }
-        console.log(buckets);
 
         for (let pair of bucket){
             if (pair[0] === key){
@@ -44,15 +42,12 @@ function HashMap(){
         oldBuckets.forEach((bucket) => {
             bucket.forEach(([key, value]) => {
                 const index = hash(key);
-                console.log(buckets);
-                console.log(buckets[index])
                 buckets[index].push([key, value]);
             })
         })
     }
 
     const get = (key) => {
-        console.log(buckets)
         const index = hash(key);
         const bucket = buckets[index];
 
@@ -65,7 +60,6 @@ function HashMap(){
                 return pair[1];
             }
         }
-
         return null;
     }
 
@@ -108,7 +102,6 @@ function HashMap(){
         for (let i = 0; i < capacity; i++){
             count += buckets[i].length         
         }
-
         return count;
     }
 
@@ -161,5 +154,7 @@ function HashMap(){
         return entryList;
     }
     return {set, get, has, remove, length, clear, keys, values, entries, rehash}
-
 }
+
+
+export {HashMap}
